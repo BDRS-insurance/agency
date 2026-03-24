@@ -3,5 +3,6 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   plugins: [react()],
-  base: '/YOUR-REPO-NAME/', 
+  // Replace 'BDRS-insurance' with your exact repo name if it's different
+  base: '/BDRS-insurance/', 
 })
