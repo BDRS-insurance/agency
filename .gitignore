@@ -1,0 +1,21 @@
+# Dependencies - This prevents uploading thousands of library files
+/node_modules
+/.pnp
+.pnp.js
+
+# Production - Prevents uploading your final build folder
+/dist
+/build
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# Environment Secrets
+.env
+.env.local
