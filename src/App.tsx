@@ -112,10 +112,10 @@ export default function App() {
                   <input name="email" type="email" placeholder="Email Address" required className="w-full bg-slate-800/50 border border-white/5 rounded-xl px-4 py-4 focus:border-blue-500 outline-none text-white transition" />
                   <input name="phone" type="tel" placeholder="Phone Number (e.g. 0917-XXX-XXXX)" required className="w-full bg-slate-800/50 border border-white/5 rounded-xl px-4 py-4 focus:border-blue-500 outline-none text-white transition" />
                   <select name="service" className="w-full bg-slate-800/50 border border-white/5 rounded-xl px-4 py-4 focus:border-blue-500 outline-none text-slate-300 transition appearance-none">
-                    <option value="" disabled selected>Select a Protection Plan</option>
-                    <option value="Life Insurance">Life Insurance</option>
-                    <option value="HMO / Health">HMO / Health Coverage</option>
-                    <option value="Non-Life">Non-Life Insurance</option>
+                    <option value="" disabled selected className="bg-[#020617] text-slate-500">Select a Protection Plan</option>
+                    <option value="Life Insurance" className="bg-[#020617] text-white">Life Insurance</option>
+                    <option value="HMO / Health" className="bg-[#020617] text-white">HMO / Health Coverage</option>
+                    <option value="Non-Life" className="bg-[#020617] text-white">Non-Life Insurance</option>
                   </select>
                   <button disabled={loading} type="submit" className="w-full bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black py-4 rounded-xl transition-all active:scale-[0.98]">
                     {loading ? "Sending..." : "Submit Inquiry"}
