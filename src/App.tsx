@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
 import { 
   ShieldCheck, HeartPulse, Car, Mail, X, 
-  CheckCircle2, MessageCircle, ChevronRight, ArrowRight, 
-  Plus, Minus, Target, Users, Award, Clock, Zap
+  CheckCircle2, ChevronRight, ArrowRight, 
+  Award, Clock, Zap
 } from 'lucide-react';
 
 export default function App() {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [showSuccess, setShowSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [activeFaq, setActiveFaq] = useState(null);
   const [activePartner, setActivePartner] = useState(null);
 
   const partners = [
@@ -17,7 +16,7 @@ export default function App() {
       name: "Pacific Cross", 
       img: "Pacific-Cross.png", 
       color: "shadow-blue-500/20 border-blue-500/50",
-      desc: "Part of a wider specialist group operating across Asia for over 70 years, Pacific Cross Philippines emerged as a leader in medical and travel insurance, building a legacy on expert regional healthcare knowledge." 
+      desc: "Part of a specialist group operating across Asia for over 70 years, Pacific Cross Philippines emerged as a leader in medical and travel insurance, building a legacy on expert regional healthcare knowledge." 
     },
     { 
       name: "Paramount", 
@@ -29,25 +28,25 @@ export default function App() {
       name: "PhilBritish", 
       img: "PhilBritish.png", 
       color: "shadow-orange-500/20 border-orange-500/50",
-      desc: "Incorporated in the 1960s, The Philippine British Assurance Company, Inc. has spent over half a century maintaining a reputation for stability and reliability in the non-life sector, with strong roots in property and marine protection." 
+      desc: "Incorporated in the 1960s, The Philippine British Assurance Company, Inc. has spent over half a century maintaining a reputation for stability, with strong roots in property and marine protection." 
     },
     { 
       name: "Asia United", 
-      img: "asia-united.svg", 
+      img: "asia-insurance.png", // UPDATED: New filename
       color: "shadow-indigo-500/20 border-indigo-500/50",
       desc: "Asia United Insurance, Inc. (AUII) is a 100% Filipino-owned non-life insurance company that earned its license in the mid-2000s, quickly establishing itself through the backing of major local financial institutions." 
     },
     { 
       name: "Bethel", 
-      img: "bethel.png", // FIXED: Changed to lowercase to match your GitHub upload
+      img: "bethel.png", // FIXED: Lowercase to match your GitHub upload
       color: "shadow-yellow-500/20 border-yellow-500/50",
-      desc: "Bethel General Insurance and Surety Corporation carries a history of dedicated service, evolving from a niche provider into a comprehensive insurer focused on integrity and providing secure surety bonds for Filipino businesses." 
+      desc: "Bethel General Insurance and Surety Corporation carries a history of dedicated service, evolving into a comprehensive insurer focused on integrity and providing secure surety bonds for businesses." 
     },
     { 
       name: "Maagap", 
       img: "maagap.png", 
       color: "shadow-cyan-500/20 border-cyan-500/50",
-      desc: "Maagap Insurance, Inc. was founded with the vision of being 'proactive' (Maagap). It has built its history on being one of the first to respond to modern risks with innovative non-life products and professional claim handling." 
+      desc: "Maagap Insurance, Inc. was founded with the vision of being 'proactive'. It has built its history on being one of the first to respond to modern risks with innovative non-life products and professional handling." 
     }
   ];
 
@@ -146,7 +145,7 @@ export default function App() {
               Insurance With <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">Guidance You Can Trust.</span>
             </h1>
             <p className="text-lg text-slate-400 mb-10 leading-relaxed max-w-xl">
-              We protect what matters most. Get expert advice and dependable insurance products tailored for your family and business.
+              Protecting what matters most with expert advice and dependable products tailored for Filipino families and businesses.
             </p>
             <a href="#quote" className="inline-flex px-8 py-4 bg-blue-600 hover:bg-blue-500 rounded-2xl font-bold transition shadow-lg shadow-blue-600/25 items-center gap-2">
               Start Your Quote <ArrowRight className="w-5 h-5" />
@@ -154,7 +153,7 @@ export default function App() {
           </div>
 
           <div id="quote" className="bg-slate-900/40 border border-white/10 p-8 rounded-[2.5rem] backdrop-blur-2xl shadow-2xl">
-            <h3 className="text-2xl font-bold mb-6 text-white">Request a Quote</h3>
+            <h3 className="text-2xl font-bold mb-6 text-white text-left">Request a Quote</h3>
             <form onSubmit={onSubmit} className="space-y-4">
               <input name="name" type="text" placeholder="Full Name" required className="w-full bg-slate-800/50 border border-white/5 rounded-xl px-4 py-3.5 focus:border-blue-500 outline-none transition text-white" />
               <div className="grid md:grid-cols-2 gap-4">
@@ -208,7 +207,7 @@ export default function App() {
                 <h4 className={`text-xl font-black transition-colors ${activePartner === index ? 'text-white' : 'text-slate-300'}`}>
                   {p.name}
                 </h4>
-                <div className={`overflow-hidden transition-all duration-500 ease-in-out ${activePartner === index ? 'max-h-60 opacity-100 mt-4' : 'max-h-0 opacity-0'}`}>
+                <div className={`overflow-hidden transition-all duration-500 ease-in-out ${activePartner === index ? 'max-h-[300px] opacity-100 mt-4' : 'max-h-0 opacity-0'}`}>
                   <p className="text-[13px] text-slate-400 leading-relaxed py-2 border-t border-white/10">
                     {p.desc}
                   </p>
@@ -238,7 +237,7 @@ export default function App() {
         </div>
       </section>
 
-      {/* PRODUCTS */}
+      {/* PRODUCTS SECTION */}
       <section id="products" className="max-w-7xl mx-auto px-6 py-24 text-center">
         <h2 className="text-4xl font-bold mb-16">Our Protection Plans</h2>
         <div className="grid md:grid-cols-3 gap-8 text-left">
@@ -255,19 +254,6 @@ export default function App() {
         </div>
       </section>
 
-      {/* CTA SECTION */}
-      <section className="max-w-5xl mx-auto px-6 py-20">
-        <div className="bg-gradient-to-br from-blue-600 to-emerald-600 rounded-[3rem] p-12 text-center relative overflow-hidden shadow-2xl">
-          <div className="relative z-10">
-            <h2 className="text-3xl md:text-5xl font-black mb-6">Secure your future today.</h2>
-            <p className="text-white/80 mb-10 max-w-xl mx-auto">Don't wait for the unexpected. Get a personalized quote and experience guidance you can trust.</p>
-            <a href="#quote" className="inline-block bg-white text-slate-900 px-10 py-5 rounded-2xl font-black uppercase tracking-widest hover:scale-105 transition-transform shadow-xl">
-              Get Your Quote Now
-            </a>
-          </div>
-        </div>
-      </section>
-
       {/* FOOTER */}
       <footer className="border-t border-white/5 py-12 px-6 text-center">
         <p className="text-slate-600 text-[10px] font-black tracking-[0.4em] uppercase">
@@ -275,11 +261,11 @@ export default function App() {
         </p>
       </footer>
 
-      {/* PRODUCT MODAL */}
+      {/* MODAL FOR PRODUCTS */}
       {selectedProduct && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center px-6 py-10">
           <div className="absolute inset-0 bg-slate-950/80 backdrop-blur-md" onClick={() => setSelectedProduct(null)} />
-          <div className="relative bg-slate-900 border border-white/10 w-full max-w-2xl rounded-[2.5rem] p-8 md:p-12 animate-in zoom-in">
+          <div className="relative bg-slate-900 border border-white/10 w-full max-w-2xl rounded-[2.5rem] p-8 md:p-12">
             <button onClick={() => setSelectedProduct(null)} className="absolute top-6 right-6 p-2 bg-slate-800 rounded-full hover:bg-slate-700 transition"><X className="w-5 h-5" /></button>
             <div className="mb-6">{selectedProduct.icon}</div>
             <h3 className="text-3xl font-bold mb-4">{selectedProduct.title}</h3>
@@ -297,11 +283,11 @@ export default function App() {
         </div>
       )}
 
-      {/* SUCCESS MODAL */}
+      {/* SUCCESS MESSAGE */}
       {showSuccess && (
         <div className="fixed inset-0 z-[110] flex items-center justify-center px-6">
           <div className="absolute inset-0 bg-slate-950/90 backdrop-blur-sm" onClick={() => setShowSuccess(false)} />
-          <div className="relative bg-slate-900 border border-emerald-500/30 p-10 max-w-md w-full rounded-[2.5rem] text-center shadow-2xl animate-in zoom-in">
+          <div className="relative bg-slate-900 border border-emerald-500/30 p-10 max-w-md w-full rounded-[2.5rem] text-center shadow-2xl">
             <CheckCircle2 className="w-16 h-16 text-emerald-500 mx-auto mb-6" />
             <h3 className="text-3xl font-bold mb-2">Message Sent!</h3>
             <p className="text-slate-400 mb-8">Expect a message from a BDRS Associate shortly.</p>
