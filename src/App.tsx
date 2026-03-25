@@ -135,7 +135,7 @@ export default function App() {
           <div className="flex-1">
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold leading-tight mb-6">
               Building <br className="hidden md:block" />
-              <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">Dependable Risk Solutions.</span>
+              <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">Dependable Risk Solutions</span>
             </h1>
             <p className="text-xl md:text-2xl font-bold text-slate-300 mb-8 md:mb-10 leading-relaxed max-w-xl mx-auto lg:mx-0">
               BDRS Associates Insurance Agency
