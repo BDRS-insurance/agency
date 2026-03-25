@@ -16,37 +16,37 @@ export default function App() {
       name: "Pacific Cross", 
       img: "Pacific-Cross.png", 
       color: "shadow-blue-500/20 border-blue-500/50",
-      desc: "Part of a specialist group operating across Asia for over 70 years, Pacific Cross Philippines emerged as a leader in medical and travel insurance, building a legacy on expert regional healthcare knowledge." 
+      desc: "With over 70 years of regional expertise, Pacific Cross Philippines began as State Bond & Insurance Co. in 1949, eventually becoming part of a specialist group dedicated to medical and travel protection across Asia." 
     },
     { 
       name: "Paramount", 
       img: "Paramount.png", 
       color: "shadow-red-500/20 border-red-500/50",
-      desc: "Established in 1950, Paramount Life & General Insurance Corporation began as a specialized non-life insurer before evolving into a diversified powerhouse known for making insurance accessible to the Filipino masses." 
+      desc: "Founded in 1950, Paramount Life & General Insurance Corporation started as a non-life insurer. It has grown into a top-tier provider by focusing on quick claims and making insurance straightforward for every Filipino." 
     },
     { 
       name: "PhilBritish", 
       img: "PhilBritish.png", 
       color: "shadow-orange-500/20 border-orange-500/50",
-      desc: "Incorporated in the 1960s, The Philippine British Assurance Company, Inc. has spent over half a century maintaining a reputation for stability, with strong roots in property and marine protection." 
+      desc: "The Philippine British Assurance Company, Inc. was incorporated in the 1960s. For over 50 years, it has maintained a legacy of strong financial backing and specialized expertise in property and marine insurance." 
     },
     { 
-      name: "Asia United", 
-      img: "asia-insurance.png", // UPDATED: New filename
+      name: "Asia Insurance", 
+      img: "asia-insurance.png", 
       color: "shadow-indigo-500/20 border-indigo-500/50",
-      desc: "Asia United Insurance, Inc. (AUII) is a 100% Filipino-owned non-life insurance company that earned its license in the mid-2000s, quickly establishing itself through the backing of major local financial institutions." 
+      desc: "Asia Insurance (Philippines) Corporation is a strategic joint venture between the Asia Insurance Company of Hong Kong and local partners. It brings a global standard of risk management to the Philippine market, specializing in personalized non-life solutions." 
     },
     { 
       name: "Bethel", 
-      img: "bethel.png", // FIXED: Lowercase to match your GitHub upload
+      img: "bethel.png", 
       color: "shadow-yellow-500/20 border-yellow-500/50",
-      desc: "Bethel General Insurance and Surety Corporation carries a history of dedicated service, evolving into a comprehensive insurer focused on integrity and providing secure surety bonds for businesses." 
+      desc: "Bethel General Insurance and Surety Corporation has a long-standing history of providing diverse non-life products. It is particularly recognized for its strong focus on surety bonds and helping local businesses manage risks." 
     },
     { 
       name: "Maagap", 
       img: "maagap.png", 
       color: "shadow-cyan-500/20 border-cyan-500/50",
-      desc: "Maagap Insurance, Inc. was founded with the vision of being 'proactive'. It has built its history on being one of the first to respond to modern risks with innovative non-life products and professional handling." 
+      desc: "Maagap Insurance, Inc. was established to provide 'proactive' protection. Over the years, it has built a reputation for innovation and reliability, becoming a go-to choice for comprehensive motor and fire insurance." 
     }
   ];
 
@@ -140,7 +140,7 @@ export default function App() {
       <section className="relative pt-40 pb-20 px-6 overflow-hidden">
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[120px] -z-10" />
         <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
-          <div>
+          <div className="text-left">
             <h1 className="text-5xl md:text-7xl font-extrabold leading-[1.1] mb-6">
               Insurance With <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">Guidance You Can Trust.</span>
             </h1>
@@ -207,7 +207,7 @@ export default function App() {
                 <h4 className={`text-xl font-black transition-colors ${activePartner === index ? 'text-white' : 'text-slate-300'}`}>
                   {p.name}
                 </h4>
-                <div className={`overflow-hidden transition-all duration-500 ease-in-out ${activePartner === index ? 'max-h-[300px] opacity-100 mt-4' : 'max-h-0 opacity-0'}`}>
+                <div className={`overflow-hidden transition-all duration-500 ease-in-out ${activePartner === index ? 'max-h-[400px] opacity-100 mt-4' : 'max-h-0 opacity-0'}`}>
                   <p className="text-[13px] text-slate-400 leading-relaxed py-2 border-t border-white/10">
                     {p.desc}
                   </p>
@@ -265,7 +265,7 @@ export default function App() {
       {selectedProduct && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center px-6 py-10">
           <div className="absolute inset-0 bg-slate-950/80 backdrop-blur-md" onClick={() => setSelectedProduct(null)} />
-          <div className="relative bg-slate-900 border border-white/10 w-full max-w-2xl rounded-[2.5rem] p-8 md:p-12">
+          <div className="relative bg-slate-900 border border-white/10 w-full max-w-2xl rounded-[2.5rem] p-8 md:p-12 animate-in zoom-in">
             <button onClick={() => setSelectedProduct(null)} className="absolute top-6 right-6 p-2 bg-slate-800 rounded-full hover:bg-slate-700 transition"><X className="w-5 h-5" /></button>
             <div className="mb-6">{selectedProduct.icon}</div>
             <h3 className="text-3xl font-bold mb-4">{selectedProduct.title}</h3>
@@ -287,7 +287,7 @@ export default function App() {
       {showSuccess && (
         <div className="fixed inset-0 z-[110] flex items-center justify-center px-6">
           <div className="absolute inset-0 bg-slate-950/90 backdrop-blur-sm" onClick={() => setShowSuccess(false)} />
-          <div className="relative bg-slate-900 border border-emerald-500/30 p-10 max-w-md w-full rounded-[2.5rem] text-center shadow-2xl">
+          <div className="relative bg-slate-900 border border-emerald-500/30 p-10 max-w-md w-full rounded-[2.5rem] text-center shadow-2xl animate-in zoom-in">
             <CheckCircle2 className="w-16 h-16 text-emerald-500 mx-auto mb-6" />
             <h3 className="text-3xl font-bold mb-2">Message Sent!</h3>
             <p className="text-slate-400 mb-8">Expect a message from a BDRS Associate shortly.</p>
