@@ -1,72 +1,72 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   ShieldCheck, HeartPulse, Car, Mail, X, 
   CheckCircle2, ChevronRight, ArrowRight, 
-  Award, Clock, Zap, MapPin, Phone, Shield, Send
+  MapPin, Phone, Shield, Send, ExternalLink
 } from 'lucide-react';
 
 export default function App() {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [submitted, setSubmitted] = useState(false); // New Success State
+  const [submitted, setSubmitted] = useState(false);
   const [activePartner, setActivePartner] = useState(null);
 
+  // Added a scroll-to-top effect on load
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const partners = [
-    { name: "Pacific Cross", img: "Pacific-Cross.png", desc: "With over 70 years of regional expertise, Pacific Cross Philippines focuses on specialist medical and travel protection across Asia." },
-    { name: "Paramount", img: "Paramount.png", desc: "Founded in 1950, Paramount provides straightforward life and non-life insurance with a focus on quick, reliable claims." },
-    { name: "PhilBritish", img: "PhilBritish.png", desc: "Over 50 years of legacy in the Philippines, offering strong financial backing for property and marine insurance." },
-    { name: "Asia Insurance", img: "asia-insurance.png", desc: "A strategic venture bringing global standards of risk management and reliable coverage to the local market." },
-    { name: "Bethel", img: "bethel.png", desc: "Recognized for diverse non-life products and a strong focus on surety bonds for local business growth." },
-    { name: "Maagap", img: "maagap.png", desc: "Known for proactive protection and innovation in comprehensive motor and fire insurance solutions." }
+    { name: "Pacific Cross", img: "Pacific-Cross.png", desc: "Specialist medical and travel protection across Asia." },
+    { name: "Paramount", img: "Paramount.png", desc: "Straightforward life and non-life insurance with reliable claims." },
+    { name: "PhilBritish", img: "PhilBritish.png", desc: "Strong financial backing for property and marine insurance." },
+    { name: "Asia Insurance", img: "asia-insurance.png", desc: "Global standards of risk management for the local market." },
+    { name: "Bethel", img: "bethel.png", desc: "Surety bonds and niche non-life products for business growth." },
+    { name: "Maagap", img: "maagap.png", desc: "Innovative motor and fire insurance solutions." }
   ];
 
   const products = [
     {
       id: 'life',
       title: 'Life Insurance',
-      icon: <ShieldCheck className="w-10 h-10 text-blue-400" />,
+      icon: <ShieldCheck className="w-12 h-12 text-blue-400 group-hover:text-blue-300 transition-colors" />,
       shortDesc: 'Protect your family’s future and peace of mind.',
-      longDesc: 'Life insurance is a promise. Our plans cover educational funds, estate planning, and long-term family security.',
-      benefits: ['Death Benefit', 'Critical Illness', 'Education Fund', 'Retirement']
+      longDesc: 'Our life insurance plans are designed to provide a financial safety net for your loved ones, covering everything from education funds to estate planning.',
+      benefits: ['Death Benefit', 'Critical Illness', 'Education Fund', 'Retirement Planning']
     },
     {
       id: 'hmo',
       title: 'HMO / Health',
-      icon: <HeartPulse className="w-10 h-10 text-emerald-400" />,
+      icon: <HeartPulse className="w-12 h-12 text-emerald-400 group-hover:text-emerald-300 transition-colors" />,
       shortDesc: 'Comprehensive medical protection for everyone.',
-      longDesc: 'Access the best hospitals and doctors through our premium healthcare partner network across the Philippines.',
-      benefits: ['In-patient Care', 'Emergency', 'Dental', 'Annual Physical Exams']
+      longDesc: 'Access world-class healthcare. Our HMO partners ensure you have priority access to top hospitals and specialists nationwide.',
+      benefits: ['In-patient & Out-patient', 'Emergency Care', 'Dental Coverage', 'Annual Physical Exams']
     },
     {
       id: 'non-life',
       title: 'Non-Life',
-      icon: <Car className="w-10 h-10 text-cyan-400" />,
+      icon: <Car className="w-12 h-12 text-cyan-400 group-hover:text-cyan-300 transition-colors" />,
       shortDesc: 'Protect your vehicles, property, and assets.',
-      longDesc: 'Robust coverage for your cars, homes, and business operations against unforeseen risks and accidents.',
-      benefits: ['Car Insurance', 'Fire Insurance', 'Marine Cargo', 'Surety Bonds']
+      longDesc: 'From your daily driver to your business warehouse, our non-life insurance covers assets against fire, theft, and accidents.',
+      benefits: ['Comprehensive Auto', 'Fire & Allied Perils', 'Marine Cargo', 'Surety Bonds']
     }
   ];
 
   const onSubmit = async (event) => {
     event.preventDefault();
     setLoading(true);
-    
-    // Web3Forms logic (Replace access_key with yours)
     const formData = new FormData(event.target);
     formData.append("access_key", "YOUR_ACCESS_KEY_HERE");
-
-    const response = await fetch("https://api.web3forms.com/submit", {
-      method: "POST",
-      body: formData
-    });
-
-    const data = await response.json();
-
-    if (data.success) {
-      setLoading(false);
-      setSubmitted(true); // Show Success Message
-    } else {
-      console.log("Error", data);
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formData
+      });
+      const data = await response.json();
+      if (data.success) setSubmitted(true);
+    } catch (e) {
+      console.error(e);
+    } finally {
       setLoading(false);
     }
   };
@@ -74,167 +74,155 @@ export default function App() {
   return (
     <div className="min-h-screen bg-[#020617] text-slate-100 font-sans selection:bg-blue-500/30 overflow-x-hidden">
       
-      {/* NAVIGATION */}
-      <nav className="fixed top-0 w-full z-50 px-4 py-3">
-        <div className="max-w-7xl mx-auto flex items-center justify-between bg-slate-900/80 backdrop-blur-xl border border-white/10 rounded-2xl px-4 py-3 shadow-2xl">
-          <div className="flex flex-col cursor-pointer" onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}>
-            <span className="text-lg md:text-xl font-black tracking-tight bg-gradient-to-r from-blue-400 to-emerald-400 bg-clip-text text-transparent uppercase">BDRS</span>
-            <span className="text-[7px] md:text-[9px] uppercase tracking-widest text-slate-400 font-bold">Dependable Risk Solutions</span>
+      {/* PREMIUM NAVIGATION */}
+      <nav className="fixed top-0 w-full z-[100] px-6 py-5">
+        <div className="max-w-7xl mx-auto flex items-center justify-between bg-slate-900/40 backdrop-blur-2xl border border-white/10 rounded-3xl px-6 py-4 shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+          <div className="flex flex-col cursor-pointer hover:opacity-80 transition" onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}>
+            <span className="text-xl md:text-2xl font-black tracking-tighter bg-gradient-to-r from-blue-400 via-cyan-400 to-emerald-400 bg-clip-text text-transparent uppercase">BDRS</span>
+            <span className="text-[8px] uppercase tracking-[0.3em] text-slate-400 font-bold">Associates Insurance</span>
           </div>
-          <a href="mailto:bdrsassociates@gmail.com" className="bg-blue-600 text-white px-5 py-2.5 rounded-xl text-xs font-black uppercase hover:bg-blue-500 transition active:scale-95">Contact Us</a>
+          <div className="hidden md:flex gap-8 text-xs font-bold uppercase tracking-widest text-slate-400">
+            <a href="#partners" className="hover:text-white transition">Partners</a>
+            <a href="#products" className="hover:text-white transition">Protection</a>
+            <a href="#contact" className="hover:text-white transition">Location</a>
+          </div>
+          <a href="mailto:bdrsassociates@gmail.com" className="bg-blue-600 hover:bg-blue-500 text-white px-6 py-3 rounded-2xl text-xs font-black uppercase tracking-widest transition-all shadow-lg shadow-blue-600/20 active:scale-95">Inquire</a>
         </div>
       </nav>
 
-      {/* HERO SECTION */}
-      <section className="relative pt-32 md:pt-48 pb-20 px-6 overflow-hidden">
-        <div className="absolute top-0 right-0 w-64 md:w-[500px] h-64 md:h-[500px] bg-blue-600/10 rounded-full blur-[120px] -z-10" />
-        <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-16 items-center">
+      {/* HERO SECTION WITH ANIMATED GRADIENT */}
+      <section className="relative pt-44 md:pt-60 pb-32 px-6">
+        <div className="absolute top-[-10%] right-[-10%] w-[500px] h-[500px] bg-blue-600/20 rounded-full blur-[120px] -z-10 animate-pulse" />
+        <div className="absolute bottom-[-10%] left-[-10%] w-[400px] h-[400px] bg-emerald-600/10 rounded-full blur-[100px] -z-10" />
+        
+        <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-20 items-center">
           <div className="flex-1 text-center lg:text-left">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-[10px] font-bold uppercase tracking-widest mb-6">
-              <Shield className="w-3 h-3" /> Licensed Insurance Agency
+            <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-blue-400 text-[10px] font-black uppercase tracking-[0.2em] mb-8 shadow-xl">
+              <Shield className="w-3.5 h-3.5 animate-pulse" /> Licensed Insurance Agency
             </div>
-            <h1 className="text-5xl md:text-7xl font-extrabold leading-[1.1] mb-6">
-              Building <br className="hidden md:block" />
-              <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">Dependable Risk Solutions.</span>
+            <h1 className="text-6xl md:text-8xl font-black leading-[0.95] mb-8 tracking-tighter">
+              Securing <br />
+              <span className="bg-gradient-to-r from-blue-400 via-cyan-400 to-emerald-400 bg-clip-text text-transparent">Your Legacy.</span>
             </h1>
-            <p className="text-xl md:text-2xl font-bold text-slate-300 mb-10">BDRS Associates Insurance Agency</p>
-            <a href="#products" className="inline-flex px-8 py-4 bg-blue-600 hover:bg-blue-500 rounded-2xl font-bold transition shadow-lg shadow-blue-600/25 items-center gap-2">
-              Explore Plans <ArrowRight className="w-5 h-5" />
-            </a>
+            <p className="text-xl md:text-2xl font-medium text-slate-400 mb-12 max-w-2xl leading-relaxed">Building Dependable Risk Solutions through heritage-backed insurance expertise.</p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+              <a href="#quote" className="px-10 py-5 bg-blue-600 hover:bg-blue-500 rounded-2xl font-extrabold text-sm uppercase tracking-widest transition-all shadow-2xl shadow-blue-600/40 flex items-center justify-center gap-3">
+                Get a Quote <ArrowRight className="w-5 h-5" />
+              </a>
+            </div>
           </div>
 
-          <div id="quote" className="w-full lg:w-[450px] bg-slate-900/40 border border-white/10 p-8 rounded-[2.5rem] backdrop-blur-2xl shadow-2xl shrink-0 min-h-[480px] flex flex-col justify-center">
+          {/* PREMIUM FORM BOX */}
+          <div id="quote" className="w-full lg:w-[480px] bg-gradient-to-b from-slate-800/80 to-slate-900/90 border border-white/10 p-10 rounded-[3rem] backdrop-blur-3xl shadow-[0_50px_100px_rgba(0,0,0,0.6)] shrink-0 min-h-[550px] flex flex-col justify-center border-t-white/20">
             {!submitted ? (
               <>
-                <h3 className="text-2xl font-bold mb-6 text-white">Request a Quote</h3>
-                <form onSubmit={onSubmit} className="space-y-4">
-                  <input name="name" type="text" placeholder="Full Name" required className="w-full bg-slate-800/50 border border-white/5 rounded-xl px-4 py-4 focus:border-blue-500 outline-none text-white transition" />
-                  <input name="email" type="email" placeholder="Email Address" required className="w-full bg-slate-800/50 border border-white/5 rounded-xl px-4 py-4 focus:border-blue-500 outline-none text-white transition" />
-                  <input name="phone" type="tel" placeholder="Phone Number (e.g. 0917-XXX-XXXX)" required className="w-full bg-slate-800/50 border border-white/5 rounded-xl px-4 py-4 focus:border-blue-500 outline-none text-white transition" />
-
-                  {/* UPDATED BLACK DROPDOWN */}
-                  <select name="service" required className="w-full bg-slate-800/50 border border-white/5 rounded-xl px-4 py-4 focus:border-blue-500 outline-none text-white transition cursor-pointer">
-                    <option value="" disabled selected className="bg-[#020617] text-slate-500">Select a Protection Plan</option>
-                    <option value="Life Insurance" className="bg-[#020617] text-white">Life Insurance</option>
-                    <option value="HMO / Health" className="bg-[#020617] text-white">HMO / Health Coverage</option>
-                    <option value="Non-Life" className="bg-[#020617] text-white">Non-Life Insurance</option>
-                  </select>
-                  <button disabled={loading} type="submit" className="w-full bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black py-4 rounded-xl transition-all active:scale-[0.98]">
-                    {loading ? "Sending..." : "Submit Inquiry"}
+                <h3 className="text-3xl font-black mb-8 text-white tracking-tight">Request Briefing</h3>
+                <form onSubmit={onSubmit} className="space-y-5">
+                  <input name="name" type="text" placeholder="Full Name" required className="w-full bg-slate-950/50 border border-white/5 rounded-2xl px-5 py-5 focus:border-blue-500/50 focus:ring-4 focus:ring-blue-500/10 outline-none text-white transition-all placeholder:text-slate-600 font-medium" />
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <input name="email" type="email" placeholder="Email" required className="w-full bg-slate-950/50 border border-white/5 rounded-2xl px-5 py-5 focus:border-blue-500/50 outline-none text-white transition-all placeholder:text-slate-600 font-medium" />
+                    <input name="phone" type="tel" placeholder="Mobile" required className="w-full bg-slate-950/50 border border-white/5 rounded-2xl px-5 py-5 focus:border-blue-500/50 outline-none text-white transition-all placeholder:text-slate-600 font-medium" />
+                  </div>
+                  
+                  {/* DARK DROPDOWN IMPROVED */}
+                  <div className="relative">
+                    <select name="service" required className="w-full bg-slate-950/50 border border-white/5 rounded-2xl px-5 py-5 focus:border-blue-500/50 outline-none text-white transition-all cursor-pointer appearance-none font-medium">
+                      <option value="" disabled selected className="bg-[#020617] text-slate-500">Service Category</option>
+                      <option value="Life" className="bg-[#020617] text-white py-4">Life Insurance</option>
+                      <option value="HMO" className="bg-[#020617] text-white py-4">HMO / Health</option>
+                      <option value="Non-Life" className="bg-[#020617] text-white py-4">Non-Life / Assets</option>
+                    </select>
+                    <ChevronRight className="absolute right-6 top-6 w-5 h-5 text-slate-500 rotate-90 pointer-events-none" />
+                  </div>
+                  
+                  <button disabled={loading} type="submit" className="w-full bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-400 hover:to-emerald-500 text-slate-950 font-black py-5 rounded-2xl transition-all active:scale-[0.98] shadow-xl shadow-emerald-900/20 uppercase tracking-[0.2em] text-xs">
+                    {loading ? "Syncing..." : "Transmit Inquiry"}
                   </button>
                 </form>
               </>
             ) : (
-              <div className="text-center py-10 animate-in fade-in zoom-in duration-500">
-                <div className="w-20 h-20 bg-emerald-500/20 border border-emerald-500/50 rounded-full flex items-center justify-center mx-auto mb-6">
+              <div className="text-center py-12 animate-in fade-in zoom-in duration-700">
+                <div className="w-24 h-24 bg-emerald-500/10 border border-emerald-500/30 rounded-full flex items-center justify-center mx-auto mb-8 shadow-2xl shadow-emerald-500/20">
                   <Send className="text-emerald-400 w-10 h-10" />
                 </div>
-                <h3 className="text-3xl font-bold text-white mb-4">Inquiry Sent!</h3>
-                <p className="text-slate-400 mb-8 leading-relaxed">Thank you for reaching out. One of our risk advisors will contact you shortly via email or phone.</p>
-                <button onClick={() => setSubmitted(false)} className="text-blue-400 font-bold text-sm uppercase tracking-widest hover:text-blue-300 transition">Send another request</button>
+                <h3 className="text-4xl font-black text-white mb-4 tracking-tight">Confirmed.</h3>
+                <p className="text-slate-400 mb-10 leading-relaxed font-medium">Transmission successful. An advisor will contact you within 24 hours.</p>
+                <button onClick={() => setSubmitted(false)} className="px-8 py-4 bg-white/5 border border-white/10 rounded-xl text-xs font-bold uppercase tracking-widest hover:bg-white/10 transition">New Request</button>
               </div>
             )}
           </div>
         </div>
       </section>
 
-      {/* PARTNERS SECTION */}
-      <section className="max-w-7xl mx-auto px-6 py-24 border-t border-white/5">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-5xl font-black mb-4">Accredited Partners</h2>
-          <div className="h-1.5 w-24 bg-blue-500 mx-auto rounded-full mb-6"></div>
-          <p className="text-slate-400 italic">Tap a partner to reveal their expertise and history</p>
+      {/* PARTNERS SECTION - ELEVATED CARDS */}
+      <section id="partners" className="max-w-7xl mx-auto px-6 py-32 border-t border-white/5">
+        <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
+          <div className="max-w-2xl">
+            <h2 className="text-4xl md:text-6xl font-black mb-6 tracking-tighter text-white">Institutional Partners.</h2>
+            <p className="text-slate-400 text-lg font-medium leading-relaxed">We curate the most stable insurance providers in the Philippines to guarantee your safety.</p>
+          </div>
+          <div className="px-6 py-3 rounded-2xl bg-white/5 border border-white/10 text-[10px] font-black uppercase tracking-widest text-slate-500">A-Rated Carriers Only</div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
           {partners.map((p, i) => (
             <div 
               key={i} 
               onClick={() => setActivePartner(activePartner === i ? null : i)} 
-              className={`group p-8 rounded-[2.5rem] border transition-all duration-300 cursor-pointer
-                ${activePartner === i ? 'bg-slate-900 border-blue-500/50 shadow-2xl shadow-blue-500/10' : 'border-white/10 bg-white/[0.02] hover:bg-white/[0.05]'}`}
+              className={`group relative p-10 rounded-[3rem] border transition-all duration-500 cursor-pointer overflow-hidden
+                ${activePartner === i ? 'bg-slate-900/80 border-blue-500/40 shadow-2xl scale-[1.02]' : 'border-white/5 bg-white/[0.01] hover:bg-white/[0.04] hover:border-white/10 hover:-translate-y-2'}`}
             >
-              <div className="bg-white p-6 rounded-3xl h-28 flex items-center justify-center mb-8 shadow-inner overflow-hidden">
-                <img src={`/agency/${p.img}`} alt={p.name} className="max-h-full object-contain group-hover:scale-110 transition-transform" />
+              <div className="bg-white p-8 rounded-[2rem] h-32 flex items-center justify-center mb-10 shadow-2xl group-hover:scale-105 transition-transform duration-500">
+                <img src={`/agency/${p.img}`} alt={p.name} className="max-h-full object-contain filter brightness-100 contrast-110" />
               </div>
-              <h4 className="text-xl font-bold mb-2 flex justify-between items-center">
-                {p.name} <ChevronRight className={`w-5 h-5 transition-transform ${activePartner === i ? 'rotate-90 text-blue-500' : ''}`} />
+              <h4 className="text-2xl font-black mb-4 flex justify-between items-center text-white tracking-tight">
+                {p.name} <ChevronRight className={`w-6 h-6 transition-all duration-500 ${activePartner === i ? 'rotate-90 text-blue-400' : 'text-slate-700'}`} />
               </h4>
-              <div className={`overflow-hidden transition-all duration-500 ${activePartner === i ? 'max-h-40 opacity-100' : 'max-h-0 opacity-0'}`}>
-                <p className="text-sm text-slate-400 mt-4 leading-relaxed border-t border-white/10 pt-4">{p.desc}</p>
+              <div className={`overflow-hidden transition-all duration-700 ease-in-out ${activePartner === i ? 'max-h-40 opacity-100' : 'max-h-0 opacity-0'}`}>
+                <p className="text-slate-400 mt-6 leading-relaxed font-medium border-t border-white/10 pt-6">{p.desc}</p>
               </div>
+              {/* Subtle accent line */}
+              <div className="absolute bottom-0 left-0 h-1 bg-gradient-to-r from-blue-500/0 via-blue-500/50 to-emerald-500/0 w-full opacity-0 group-hover:opacity-100 transition-opacity" />
             </div>
           ))}
-        </div>
-      </section>
-
-      {/* PRODUCTS SECTION */}
-      <section id="products" className="max-w-7xl mx-auto px-6 py-24 border-t border-white/5">
-        <h2 className="text-4xl font-bold text-center mb-16">Our Protection Plans</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {products.map((product) => (
-            <div key={product.id} onClick={() => setSelectedProduct(product)} className="bg-slate-900/50 border border-white/5 p-10 rounded-[2.5rem] hover:bg-slate-800 hover:border-blue-500/30 transition-all cursor-pointer group">
-              <div className="mb-6 group-hover:scale-110 transition-transform origin-left">{product.icon}</div>
-              <h4 className="text-2xl font-bold mb-4">{product.title}</h4>
-              <p className="text-slate-400 mb-8 leading-relaxed">{product.shortDesc}</p>
-              <span className="text-blue-400 font-bold text-xs uppercase tracking-widest flex items-center gap-2">View Details <ChevronRight className="w-4 h-4" /></span>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* OFFICE & CONTACT SECTION */}
-      <section className="max-w-7xl mx-auto px-6 py-24 border-t border-white/5">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-          <div>
-            <h2 className="text-4xl font-bold mb-8">Get In Touch</h2>
-            <div className="space-y-10">
-              <div className="flex gap-6">
-                <div className="w-14 h-14 rounded-2xl bg-blue-500/10 flex items-center justify-center shrink-0 border border-blue-500/20 text-blue-400"><MapPin /></div>
-                <div>
-                  <h4 className="font-bold text-lg mb-1">Our Office</h4>
-                  <p className="text-slate-400 leading-relaxed">Unit 123, Financial Center Bldg,<br />Makati City, Metro Manila</p>
-                </div>
-              </div>
-              <div className="flex gap-6">
-                <div className="w-14 h-14 rounded-2xl bg-emerald-500/10 flex items-center justify-center shrink-0 border border-emerald-500/20 text-emerald-400"><Phone /></div>
-                <div>
-                  <h4 className="font-bold text-lg mb-1">Contact Details</h4>
-                  <p className="text-slate-400 leading-relaxed">bdrsassociates@gmail.com<br />+63 (02) 8XXX-XXXX</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="h-80 bg-slate-800 rounded-[3rem] border border-white/10 flex items-center justify-center relative overflow-hidden">
-             <div className="absolute inset-0 bg-blue-500/5 animate-pulse" />
-             <p className="text-slate-500 italic text-sm">Map View Coming Soon</p>
-          </div>
         </div>
       </section>
 
       {/* FOOTER */}
-      <footer className="py-12 border-t border-white/5 text-center">
-        <p className="text-[10px] text-slate-500 font-bold uppercase tracking-[0.4em]">© 2026 BDRS Associates Insurance Agency. All Rights Reserved.</p>
+      <footer id="contact" className="py-20 border-t border-white/5 bg-slate-950">
+        <div className="max-w-7xl mx-auto px-6 text-center">
+          <div className="flex flex-col items-center gap-4 mb-10">
+             <div className="text-3xl font-black bg-gradient-to-r from-blue-400 to-emerald-400 bg-clip-text text-transparent">BDRS</div>
+             <div className="flex gap-6 text-slate-500 text-sm font-bold uppercase tracking-widest">
+                <span>Manila, PH</span>
+                <span>•</span>
+                <span>Est. 2026</span>
+             </div>
+          </div>
+          <p className="text-[10px] text-slate-600 font-black uppercase tracking-[0.5em]">© BDRS Associates Insurance Agency. Built for Dependability.</p>
+        </div>
       </footer>
 
-      {/* PRODUCT MODAL */}
+      {/* PRODUCT MODAL - REDESIGNED */}
       {selectedProduct && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-          <div className="absolute inset-0 bg-slate-950/90 backdrop-blur-md" onClick={() => setSelectedProduct(null)} />
-          <div className="relative bg-slate-900 border border-white/10 w-full max-w-lg rounded-[3rem] p-10 shadow-2xl animate-in zoom-in duration-300">
-            <button onClick={() => setSelectedProduct(null)} className="absolute top-8 right-8 p-2 bg-slate-800 rounded-full hover:bg-slate-700 transition"><X className="w-5 h-5" /></button>
-            <div className="mb-6">{selectedProduct.icon}</div>
-            <h3 className="text-3xl font-bold mb-4">{selectedProduct.title}</h3>
-            <p className="text-slate-400 mb-8 leading-relaxed">{selectedProduct.longDesc}</p>
-            <div className="grid grid-cols-2 gap-4 mb-8">
+        <div className="fixed inset-0 z-[200] flex items-center justify-center p-6">
+          <div className="absolute inset-0 bg-slate-950/95 backdrop-blur-2xl" onClick={() => setSelectedProduct(null)} />
+          <div className="relative bg-slate-900/90 border border-white/20 w-full max-w-xl rounded-[4rem] p-12 shadow-[0_100px_200px_rgba(0,0,0,0.8)] animate-in zoom-in slide-in-from-bottom-10 duration-500">
+            <button onClick={() => setSelectedProduct(null)} className="absolute top-10 right-10 p-3 bg-white/5 border border-white/10 rounded-2xl hover:bg-white/10 transition text-white"><X className="w-6 h-6" /></button>
+            <div className="mb-10 p-5 bg-white/5 rounded-[2rem] w-fit shadow-inner">{selectedProduct.icon}</div>
+            <h3 className="text-4xl md:text-5xl font-black mb-6 text-white tracking-tighter">{selectedProduct.title}</h3>
+            <p className="text-slate-400 mb-12 text-lg leading-relaxed font-medium">{selectedProduct.longDesc}</p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-12">
               {selectedProduct.benefits.map((b, i) => (
-                <div key={i} className="bg-white/5 border border-white/5 p-3 rounded-xl flex items-center gap-3">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-                  <span className="text-[10px] font-bold uppercase tracking-wide">{b}</span>
+                <div key={i} className="bg-white/[0.03] border border-white/10 p-5 rounded-2xl flex items-center gap-4 group">
+                  <div className="w-8 h-8 rounded-full bg-emerald-500/10 flex items-center justify-center shrink-0 border border-emerald-500/20 group-hover:bg-emerald-500 group-hover:border-emerald-500 transition-all duration-300">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-400 group-hover:text-slate-950" />
+                  </div>
+                  <span className="text-xs font-black uppercase tracking-widest text-white">{b}</span>
                 </div>
               ))}
             </div>
-            <button onClick={() => { setSelectedProduct(null); window.scrollTo({top: 0, behavior: 'smooth'}); }} className="w-full py-4 bg-blue-600 rounded-2xl font-bold hover:bg-blue-500 transition">Inquire Now</button>
+            <button onClick={() => { setSelectedProduct(null); window.scrollTo({top: 0, behavior: 'smooth'}); }} className="w-full py-6 bg-blue-600 rounded-[2rem] font-black text-sm uppercase tracking-[0.2em] hover:bg-blue-500 transition-all shadow-2xl shadow-blue-600/30 text-white">Initiate Coverage Inquiry</button>
           </div>
         </div>
       )}
